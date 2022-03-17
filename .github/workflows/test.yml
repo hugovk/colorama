@@ -12,8 +12,8 @@ jobs:
   mac:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: 3.8
     - run: ./demos/demo.sh
@@ -27,8 +27,8 @@ jobs:
   lin:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: 3.8
     - run: ./demos/demo.sh
@@ -42,7 +42,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - run: docker run --rm -tv $(pwd):/src -w /src/demos python:3-slim ./demo.sh
     - run: docker run --rm -tv $(pwd):/src -w /src/demos -e FORCE_COLOR=true python:3-slim ./demo.sh
     - run: docker run --rm -tv $(pwd):/src -w /src/demos -e NO_COLOR=true python:3-slim ./demo.sh
@@ -50,8 +50,8 @@ jobs:
   cmd:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: 3.8
     - shell: cmd
@@ -68,8 +68,8 @@ jobs:
   ps:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: 3.8
     - shell: powershell
@@ -86,8 +86,8 @@ jobs:
   bash:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: 3.8
     - shell: bash
@@ -104,8 +104,8 @@ jobs:
   msys2:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-python@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: 3.8
     - uses: msys2/setup-msys2@v2
@@ -132,7 +132,7 @@ jobs:
   pacman:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -157,7 +157,7 @@ jobs:
   pacman_cmd:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -182,7 +182,7 @@ jobs:
   pacman_ps:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -207,7 +207,7 @@ jobs:
   pacman_bash:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - uses: msys2/setup-msys2@v2
       with:
         msystem: MINGW64
@@ -239,8 +239,8 @@ jobs:
           - macos-latest
           - windows-latest
         pyenv:
-          - { pyver: "pypy2", toxenv: "pypy" }
-          - { pyver: "pypy3", toxenv: "pypy3" }
+          - { pyver: "pypy-2.7", toxenv: "pypy" }
+          - { pyver: "pypy-3.8", toxenv: "pypy3" }
           - { pyver: "2.7",   toxenv: "py27" }
           - { pyver: "3.5",   toxenv: "py35" }
           - { pyver: "3.6",   toxenv: "py36" }
@@ -250,10 +250,10 @@ jobs:
           - { pyver: "3.10",  toxenv: "py310" }
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up Python ${{ matrix.pyenv.pyver }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.pyenv.pyver }}
 
@@ -263,7 +263,7 @@ jobs:
           echo "::set-output name=dir::$(pip cache dir)"
 
       - name: Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
           key:
